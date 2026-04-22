@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# If it's first run copy initial config to writeable location
+test -e "${SNAP_DATA}/daemon_arguments" || cp "${SNAP}/etc/avalanche/daemon_arguments.example" "${SNAP_DATA}/daemon_arguments"
+
+. "$SNAP_DATA/daemon_arguments"
+
+exec "${SNAP}/bin/avalanche" ${ARGS}

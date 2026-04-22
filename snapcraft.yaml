@@ -1,0 +1,55 @@
+name: prometheus-avalanche
+version: '0.7.0'
+summary: Prometheus/OpenMetrics endpoint series generator for load testing.
+base: core24
+platforms:
+  amd64:
+  arm64:
+description: |
+  Avalanche is a load-testing binary capable of generating metrics that can be
+  either scraped via Prometheus scrape formats (including OpenMetrics) endpoint,
+  or written via Prometheus Remote Write to a target endpoint.
+
+  This allows load testing services that can scrape (e.g. Prometheus,
+  OpenTelemetry Collector), as well as services accepting data via Prometheus
+  remote_write API such as Thanos, Cortex, M3DB and VictoriaMetrics.
+
+  This is an unofficial snap which builds and re-packs the source provided by
+  the Prometheus community
+  (https://github.com/prometheus-community/avalanche).
+source-code: https://github.com/canonical/avalanche-snap.git
+confinement: strict
+grade: stable
+
+apps:
+  daemon:
+    command: 'bin/avalanche.wrapper'
+    plugs: [network-bind, network]
+    daemon: simple
+
+parts:
+  avalanche:
+    plugin: go
+    source: https://github.com/prometheus-community/avalanche.git
+    source-type: git
+    source-tag: v${SNAPCRAFT_PROJECT_VERSION}
+    build-snaps:
+      - go/latest/stable
+    build-environment:
+      - CGO_ENABLED: "0"
+    go-buildtags:
+      - netgo
+    go-generate:
+      - ./cmd/avalanche
+  local-files:
+    plugin: dump
+    source: .
+    organize:
+      daemon_arguments: etc/avalanche/daemon_arguments.example
+      snap_config_wrapper: bin/avalanche.wrapper
+    stage:
+      - etc/avalanche/daemon_arguments.example
+      - bin/avalanche.wrapper
+    prime:
+      - etc/avalanche/daemon_arguments.example
+      - bin/avalanche.wrapper
