@@ -1,4 +1,4 @@
-name: prometheus-avalanche
+name: avalanche
 version: '0.7.0'
 summary: Prometheus/OpenMetrics endpoint series generator for load testing.
 base: core24
@@ -6,7 +6,7 @@ platforms:
   amd64:
   arm64:
 description: |
-  Avalanche is a load-testing binary capable of generating metrics that can be
+  Avalanche is a testing binary capable of generating metrics that can be
   either scraped via Prometheus scrape formats (including OpenMetrics) endpoint,
   or written via Prometheus Remote Write to a target endpoint.
 
