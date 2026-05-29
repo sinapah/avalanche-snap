@@ -1,0 +1,12 @@
+# Set the command-line arguments to pass to avalanche.
+ARGS=""
+
+# The following options may be set (see avalanche --help for full list):
+#   --metric-count=500                Number of unique metrics to generate.
+#   --label-count=10                  Number of labels per metric.
+#   --series-count=10                 Number of series per metric.
+#   --series-interval=60              Change series every N seconds.
+#   --series-change-rate=0            Rate of series changes (0 = disabled).
+#   --port=9001                       Port to serve metrics on.
+#   --remote-url=""                   URL to send remote write data to.
+#   --remote-write-interval=10s       Interval between remote write requests.
